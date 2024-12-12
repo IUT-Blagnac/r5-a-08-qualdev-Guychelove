@@ -1,31 +1,42 @@
-package test.java.dojo;
+package dojo;
+
+import static org.junit.Assert.assertEquals;
 
 import java.util.List;
 
-import cucumber.api.PendingException;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import static org.junit.Assert.*;
 
 public class CocktailSteps {
     private Order order;
 
-    @Given("Romeo who wants to buy a drink")
-    public void romeo_who_wants_to_buy_a_drink() {
+    // Paramétrer le nom de la personne qui veut acheter un verre
+    @Given("{string} who wants to buy a drink")
+    public void declareOwner(String owner) {
         order = new Order();
-        order.declareOwner("Romeo");
+        order.declareOwner(owner); // Le nom de la personne qui veut acheter un verre est paramétré
     }
 
-    @When("an order is declared for Juliette")
-    public void an_order_is_declared_for_juliette() {
-        order.declareTarget("Juliette");
+    // Paramétrer la personne pour qui l'on commande le verre
+    @When("an order is declared for {string}")
+    public void declareTarget(String target) {
+        order.declareTarget(target); // Le nom de la personne pour qui la commande est faite est paramétré
     }
 
-    @Then("there is no cocktail in the order")
-    public void there_is_no_cocktail_in_the_order() {
-        List<String> cocktails = order.getCocktails();
-        assertEquals(0, cocktails.size());
+    // Ajouter des cocktails à la commande
+    @When("{string} adds {int} cocktail(s) to the order")
+    public void addCocktails(String owner, Integer count) {
+        order.declareOwner(owner); // Déclare le propriétaire de la commande, même si ce n'est pas nécessaire dans
+                                   // le contexte.
+        order.addCocktails(count); // Ajoute les cocktails à la commande
+    }
+
+    // Vérifier qu'il n'y a pas de cocktails dans la commande
+    @Then("there is {int} cocktail(s) in the order")
+    public void verifyCocktails(int expectedCount) {
+        List<String> cocktails = order.getCocktails(); // Récupère la liste des cocktails dans la commande
+        assertEquals(expectedCount, cocktails.size()); // Vérifie que la taille de la liste correspond au nombre attendu
     }
 
 }
