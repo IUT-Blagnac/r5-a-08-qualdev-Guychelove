@@ -25,18 +25,18 @@ public class CocktailSteps {
     }
 
     // Ajouter des cocktails à la commande
-    @When("{string} adds {int} cocktail(s) to the order")
-    public void addCocktails(String owner, Integer count) {
-        order.declareOwner(owner); // Déclare le propriétaire de la commande, même si ce n'est pas nécessaire dans
-                                   // le contexte.
-        order.addCocktails(count); // Ajoute les cocktails à la commande
+    @When("{string} adds {int} cocktail\\(s) to the order")
+    public void adds_cocktail_s_to_the_order(String string, int int1) {
+        order.declareOwner(string); // Déclare le propriétaire de la commande, même si ce n'est pas nécessaire dans
+                                    // le contexte.
+        order.addCocktails(int1); // Ajoute les cocktails à la commande
     }
 
     // Vérifier qu'il n'y a pas de cocktails dans la commande
-    @Then("there is {int} cocktail(s) in the order")
-    public void verifyCocktails(int expectedCount) {
+    @Then("there are {int} cocktail\\(s) in the order")
+    public void there_are_cocktail_s_in_the_order(int int1) {
         List<String> cocktails = order.getCocktails(); // Récupère la liste des cocktails dans la commande
-        assertEquals(expectedCount, cocktails.size()); // Vérifie que la taille de la liste correspond au nombre attendu
+        assertEquals(int1, cocktails.size()); // Vérifie que la taille de la liste correspond au nombre attendu
     }
 
 }

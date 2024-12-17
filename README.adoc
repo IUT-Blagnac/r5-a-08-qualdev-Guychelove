@@ -4,7 +4,7 @@
 
 Ce dépôt concerne les rendus de mailto:A_changer@etu.univ-tlse2.fr[Jonh Doe].
 
-== TP1
+== Qualité - Sujet TP 1 - Cucumber
 
 === Description
 
@@ -72,4 +72,70 @@ Feature: Is it Friday yet?
 
 image::images/preuve.png[width=80%]
 
-== TP2...
+== Qualité - Sujet TP 2 - Cucumber avec java
+
+=== Description
+
+Dans ce TP2, nous avons utilisé **Cucumber avec Java** pour approfondir la démarche **BDD (Behavior-Driven Development)**. Le travail consistait à écrire des scénarios de test en langage naturel dans un fichier `.feature`, puis à les exécuter à l’aide de **JUnit**. Nous avons configuré un projet Maven avec les dépendances nécessaires, créé et implémenté les steps associés en Java, et paramétré les scénarios pour tester différents cas. Enfin, nous avons exploré l’utilisation des **Scenario Outlines** pour automatiser les tests sur des données multiples, tout en mettant en avant l’importance de développer en fonction des exigences métier.
+
+=== Scénarios de test
+
+Voici les fichiers utilisés pour les tests :
+
+`CocktailSteps.java` :
+
+[source,java]
+---
+/ Paramétrer le nom de la personne qui veut acheter un verre
+    @Given("{string} who wants to buy a drink")
+    public void declareOwner(String owner) {
+        order = new Order();
+        order.declareOwner(owner); // Le nom de la personne qui veut acheter un verre est paramétré
+    }
+
+    // Paramétrer la personne pour qui l'on commande le verre
+    @When("an order is declared for {string}")
+    public void declareTarget(String target) {
+        order.declareTarget(target); // Le nom de la personne pour qui la commande est faite est paramétré
+    }
+
+    // Ajouter des cocktails à la commande
+    @When("{string} adds {int} cocktail\\(s) to the order")
+    public void adds_cocktail_s_to_the_order(String string, int int1) {
+        order.declareOwner(string); // Déclare le propriétaire de la commande, même si ce n'est pas nécessaire dans
+                                    // le contexte.
+        order.addCocktails(int1); // Ajoute les cocktails à la commande
+    }
+
+    // Vérifier qu'il n'y a pas de cocktails dans la commande
+    @Then("there are {int} cocktail\\(s) in the order")
+    public void there_are_cocktail_s_in_the_order(int int1) {
+        List<String> cocktails = order.getCocktails(); // Récupère la liste des cocktails dans la commande
+        assertEquals(int1, cocktails.size()); // Vérifie que la taille de la liste correspond au nombre attendu
+    }
+---
+
+`cocktail.feature` :
+
+[source,gherkin]
+---
+
+Feature: Cocktail Ordering
+
+  As a person who wants to buy a drink, I want to offer a drink to someone so that we can discuss together.
+
+  Scenario: Creating an empty order
+    Given "Romeo" who wants to buy a drink
+    When "Romeo" adds 0 cocktail(s) to the order
+    Then there are 0 cocktail(s) in the order
+
+  Scenario: Adding cocktails to the order
+    Given "Romeo" who wants to buy a drink
+    When "Romeo" adds 3 cocktail(s) to the order
+    Then there are 3 cocktail(s) in the order
+
+---
+
+image::images/preuve(2).png[width=80%]
+image::images/preuve(3).png[width=80%]
+
