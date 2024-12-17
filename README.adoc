@@ -70,7 +70,7 @@ Feature: Is it Friday yet?
 
 ---
 
-image::images/preuve.png[width=80%]
+image::TP1\images\preuve.png[width=80%]
 
 == Qualité - Sujet TP 2 - Cucumber avec java
 
@@ -136,6 +136,6 @@ Feature: Cocktail Ordering
 
 ---
 
-image::images/preuve(2).png[width=80%]
-image::images/preuve(3).png[width=80%]
+image::TP2\images\preuve(2).png[width=80%]
+image::TP2\images\preuve(3).png[width=80%]
 
